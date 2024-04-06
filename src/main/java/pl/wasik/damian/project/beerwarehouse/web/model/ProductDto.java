@@ -9,6 +9,7 @@ public class ProductDto {
     private String description;
     private int stock;
     private double price;
+    private byte[] image;
 
     public ProductDto() {
     }
@@ -59,6 +60,14 @@ public class ProductDto {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override
