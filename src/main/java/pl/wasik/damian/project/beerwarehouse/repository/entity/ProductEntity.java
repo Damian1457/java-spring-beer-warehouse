@@ -4,13 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "PRODUCTS")
 public class ProductEntity {
-
-    //    private byte[] image;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +20,9 @@ public class ProductEntity {
     private String description;
     private int stock;
     private double price;
+
+    @Lob
+    private byte[] image;
 
     public ProductEntity() {
     }
@@ -72,5 +74,12 @@ public class ProductEntity {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }
