@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard Produktów i Zamówień</title>
+    <link rel="stylesheet" href="css/dashboard/dashboard.css">
+</head>
+<body>
+<header>
+    <h1>Dashboard</h1>
+    <nav>
+        <a href="#">Produkty</a>
+        <a href="#">Zamówienia</a>
+        <a href="#">Wyloguj</a>
+    </nav>
+</header>
+<div class="container">
+    <div class="table-section">
+        <h2>Produkty</h2>
+        <div class="scrollable-table-container">
+            <div class="scrollable-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Pojemność</th>
+                        <th>Opis</th>
+                        <th>Stan Magazynowy</th>
+                        <th>Cena</th>
+                        <th>Obraz</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.capacity + 'g'}"></td>
+                        <td th:text="${product.description}"></td>
+                        <td th:text="${product.stock}"></td>
+                        <td th:text="${product.price + ' zł'}"></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="order-table-section">
+        <h2>Zamówienia</h2>
+        <div class="scrollable-table-container">
+            <div class="scrollable-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID Zamówienia</th>
+                        <th>Data Zamówienia</th>
+                        <th>Kwota Zamówienia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order : ${orders}">
+                        <td th:text="${order.id}"></td>
+                        <td th:text="${order.orderDate}"></td>
+                        <td th:text="${order.orderTotal + ' zł'}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    &copy; 2024 Magazyn Piwny. Wszelkie prawa zastrzeżone.
+</footer>
+</body>
+</html>
