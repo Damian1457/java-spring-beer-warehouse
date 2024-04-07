@@ -1,0 +1,123 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #6b3602;
+    color: white;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1, header nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:not(:last-child) {
+    margin-right: 20px;
+}
+
+nav a:last-child {
+    margin-left: auto;
+    margin-right: 25px;
+}
+
+footer {
+    background-color: #6b3602;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 115px 10px 0;
+}
+
+.table-section {
+    flex-basis: calc(60% - 20px);
+}
+
+.order-table-section {
+    flex-basis: calc(30% - 20px);
+}
+
+.table-section h2, .order-table-section h2 {
+    text-align: center;
+    color: #333;
+}
+
+.scrollable-table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.scrollable-table {
+    width: calc(100% - 16px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    margin: 0 auto;
+}
+
+.scrollable-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.5rem;
+    text-align: left;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+th {
+    background-color: #6b3602;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+tr:nth-child(odd) {
+    background-color: #e8e8e8;
+}
+
+.scrollable-table.sticky-headers .scrollable-table-container {
+    overflow-y: auto;
+}
+
+.scrollable-table.sticky-headers .scrollable-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #6b3602;
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .table-section, .order-table-section {
+        flex-basis: 100%;
+    }
+    header, footer {
+        padding: 10px 0;
+    }
+}
