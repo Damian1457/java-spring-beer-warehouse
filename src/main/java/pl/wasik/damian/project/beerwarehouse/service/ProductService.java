@@ -1,13 +1,11 @@
 package pl.wasik.damian.project.beerwarehouse.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import pl.wasik.damian.project.beerwarehouse.mapper.ProductMapper;
 import pl.wasik.damian.project.beerwarehouse.repository.ProductRepository;
 import pl.wasik.damian.project.beerwarehouse.repository.entity.ProductEntity;
 import pl.wasik.damian.project.beerwarehouse.web.model.ProductDto;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -28,12 +26,16 @@ public class ProductService {
         return productsDto;
     }
 
-    public ProductDto create(ProductDto productDto) {
-        LOGGER.info("create()");
-        ProductEntity mappedToEntity = ProductMapper.mapToEntity(productDto);
-        ProductDto savedProductDto = ProductMapper.mapToDto(productRepository.save(mappedToEntity));
-        LOGGER.info("create(...) = " + savedProductDto);
-        return savedProductDto;
+    public ProductDto create(ProductDto productDto, byte[] imageBytes) {
+        LOGGER.info("create(" + productDto + ")");
+        ProductEntity productEntity = ProductMapper.mapToEntity(productDto);
+        if (imageBytes != null) {
+            productEntity.setImage(imageBytes);
+        }
+        ProductEntity savedEntity = productRepository.save(productEntity);
+        ProductDto mappedToDto = ProductMapper.mapToDto(savedEntity);
+        LOGGER.info("create(...) = " + mappedToDto);
+        return mappedToDto;
     }
 
     public ProductDto read(Long id) {
@@ -57,15 +59,5 @@ public class ProductService {
         LOGGER.info("delete(" + id + ")");
         productRepository.deleteById(id);
         LOGGER.info("delete(...)");
-    }
-
-    public ProductDto uploadImage(Long id, MultipartFile file) throws IOException {
-        LOGGER.info("uploadImage(" + id + ")");
-        ProductEntity productEntity = productRepository.findById(id).orElseThrow();
-        productEntity.setImage(file.getBytes());
-        ProductEntity updatedProductEntity = productRepository.save(productEntity);
-        ProductDto mappedToDto = ProductMapper.mapToDto(updatedProductEntity);
-        LOGGER.info("uploadImage(...) = ");
-        return mappedToDto;
     }
 }
