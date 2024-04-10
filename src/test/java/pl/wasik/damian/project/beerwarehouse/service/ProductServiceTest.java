@@ -23,9 +23,10 @@ class ProductServiceTest {
         ProductService productService = new ProductService(productRepository);
         ProductDto productDto = new ProductDto();
         productDto.setName(NAME);
+        byte[] imageBytes = new byte[]{1, 2, 3};
 
         // When
-        ProductDto savedProductDto = productService.create(productDto);
+        ProductDto savedProductDto = productService.create(productDto, imageBytes);
 
         //Then
         Assertions.assertNotNull(savedProductDto, "Saved product should not be null");
