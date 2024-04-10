@@ -18,7 +18,6 @@ class ProductServiceIntegrationTest {
 
     public static final String NAME = "Butter";
     public static final String UPDATED_NAME = "Milk";
-    public static final int EXPECTED_LIST_SIZE = 0;
 
     @Autowired
     private ProductRepository productRepository;
@@ -30,9 +29,10 @@ class ProductServiceIntegrationTest {
         ProductService productService = new ProductService(productRepository);
         ProductDto productDto = new ProductDto();
         productDto.setName(NAME);
+        byte[] imageBytes = new byte[]{1, 2, 3};
 
         // When
-        productService.create(productDto);
+        productService.create(productDto, imageBytes);
         List<ProductDto> productsDto = productService.findAll();
 
         //Then
@@ -46,9 +46,10 @@ class ProductServiceIntegrationTest {
         ProductService productService = new ProductService(productRepository);
         ProductDto productDto = new ProductDto();
         productDto.setName(NAME);
+        byte[] imageBytes = new byte[]{1, 2, 3};
 
         // When
-        ProductDto createdProductDto = productService.create(productDto);
+        ProductDto createdProductDto = productService.create(productDto, imageBytes);
         ProductDto readProductDto = productService.read(createdProductDto.getId());
 
         //Then
@@ -62,9 +63,10 @@ class ProductServiceIntegrationTest {
         ProductService productService = new ProductService(productRepository);
         ProductDto productDto = new ProductDto();
         productDto.setName(NAME);
+        byte[] imageBytes = new byte[]{1, 2, 3};
 
         // When
-        ProductDto createdProduct = productService.create(productDto);
+        ProductDto createdProduct = productService.create(productDto, imageBytes);
         Long productId = createdProduct.getId();
         createdProduct.setName(UPDATED_NAME);
         productService.update(productId, createdProduct);
@@ -81,9 +83,10 @@ class ProductServiceIntegrationTest {
         ProductService productService = new ProductService(productRepository);
         ProductDto productDto = new ProductDto();
         productDto.setName(NAME);
+        byte[] imageBytes = new byte[]{1, 2, 3};
 
         // When
-        ProductDto createProductDto = productService.create(productDto);
+        ProductDto createProductDto = productService.create(productDto, imageBytes);
         productService.delete(createProductDto.getId());
         Optional<ProductEntity> productAfterDeletion = productRepository.findById(createProductDto.getId());
 
