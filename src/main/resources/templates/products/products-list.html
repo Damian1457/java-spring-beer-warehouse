@@ -2,19 +2,186 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Products</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Lista Produktów</title>
+    <style>
+        body {
+           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+           background-color: #f8f9fa;
+           margin: 0;
+           padding: 0;
+           overflow-x: hidden;
+       }
+       header {
+            background-color: #4a2c1d;
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-height: 40px;
+            overflow: hidden;
+        }
+        header h1 {
+            font-size: 24px;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        nav a:not(:last-child) {
+            margin-right: 20px;
+        }
+        nav a:last-child {
+            margin-left: auto;
+            margin-right: 25px;
+        }
+
+  .container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 115px 10px 0;
+  }
+
+  .table-section {
+      flex-basis: calc(60% - 20px);
+  }
+
+  .table-section h2 {
+      text-align: center;
+      color: #333;
+  }
+
+  .scrollable-table-container {
+      max-height: 400px;
+      overflow-y: auto;
+      position: relative;
+      width: 100%;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .scrollable-table {
+      width: calc(100% - 16px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      margin: 0 auto;
+  }
+
+  .scrollable-table table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+
+  th, td {
+      padding: 0.5rem;
+      text-align: left;
+      font-weight: bold;
+      font-size: 0.9rem;
+  }
+
+  th {
+      background-color: #4a2c1d;
+      color: white;
+      position: sticky;
+      top: 0;
+  }
+
+  tr:nth-child(odd) {
+      background-color: #e8e8e8;
+  }
+
+  .scrollable-table.sticky-headers .scrollable-table-container {
+      overflow-y: auto;
+  }
+
+  .scrollable-table.sticky-headers .scrollable-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background-color: #6b3602;
+      color: white;
+  }
+
+        footer {
+            background-color: #5a3d2d;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        .product-table {
+            margin: auto;
+            width: 90%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4a2c1d;
+            color: white;
+        }
+        @media screen and (max-width: 768px) {
+            header, footer {
+                padding: 5px 0;
+            }
+            form {
+                width: 95%;
+            }
+        }
+    </style>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
-<div>
-    <h1>Products</h1>
-    <div>
-        <div>
-            <div th:text="${products}">Products</div>
+<header>
+    <h1>Lista Produktów</h1>
+    <nav>
+        <a href="#">Pulpit</a>
+        <a href="#">Zamówienia</a>
+        <a href="#">Wyloguj</a>
+    </nav>
+</header>
+<div class="container">
+    <div class="table-section">
+        <h2>Lista Produktów</h2>
+        <div class="scrollable-table-container">
+            <div class="scrollable-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Pojemność</th>
+                        <th>Opis</th>
+                        <th>Stan Magazynowy</th>
+                        <th>Cena</th>
+                        <th>Obraz</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.capacity + 'g'}"></td>
+                        <td th:text="${product.description}"></td>
+                        <td th:text="${product.stock}"></td>
+                        <td th:text="${product.price + ' zł'}"></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<footer>
+    &copy; 2024 Magazyn Piwny. Wszelkie prawa zastrzeżone.
+</footer>
 </body>
 </html>
