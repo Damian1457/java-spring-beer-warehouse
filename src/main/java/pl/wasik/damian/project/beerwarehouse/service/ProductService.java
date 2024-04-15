@@ -6,6 +6,7 @@ import pl.wasik.damian.project.beerwarehouse.repository.ProductRepository;
 import pl.wasik.damian.project.beerwarehouse.repository.entity.ProductEntity;
 import pl.wasik.damian.project.beerwarehouse.web.model.ProductDto;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,23 +27,19 @@ public class ProductService {
         return productsDto;
     }
 
-    public ProductDto create(ProductDto productDto, byte[] imageBytes) {
-        LOGGER.info("create(" + productDto + ")");
+    public ProductDto create(ProductDto productDto) {
+        LOGGER.info("Creating product: " + productDto.getName());
         ProductEntity productEntity = ProductMapper.mapToEntity(productDto);
-        if (imageBytes != null) {
-            productEntity.setImage(imageBytes);
-        }
+        productEntity.setImage(Base64.getDecoder().decode(productDto.getImageBase64()));
         ProductEntity savedEntity = productRepository.save(productEntity);
-        ProductDto mappedToDto = ProductMapper.mapToDto(savedEntity);
-        LOGGER.info("create(...) = " + mappedToDto);
-        return mappedToDto;
+        return ProductMapper.mapToDto(savedEntity);
     }
 
     public ProductDto read(Long id) {
-        LOGGER.info("read(" + id + ")");
-        ProductDto productDto = ProductMapper.mapToDto(productRepository.findById(id).orElseThrow());
-        LOGGER.info("read(...) = " + productDto);
-        return productDto;
+        LOGGER.info("Reading product with ID: " + id);
+        return productRepository.findById(id)
+                .map(ProductMapper::mapToDto)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found with ID: " + id));
     }
 
     public ProductDto update(Long id, ProductDto productDto) {

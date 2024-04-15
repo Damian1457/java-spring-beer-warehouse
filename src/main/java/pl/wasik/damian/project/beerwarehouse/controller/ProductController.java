@@ -14,6 +14,7 @@ import pl.wasik.damian.project.beerwarehouse.service.ProductService;
 import pl.wasik.damian.project.beerwarehouse.web.model.ProductDto;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -57,23 +58,17 @@ public class ProductController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute ProductDto productDto, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
-        LOGGER.info("create(" + productDto + ")");
-        if (image.isEmpty()) {
-            LOGGER.info("Image field cannot be empty.");
-            redirectAttributes.addFlashAttribute("errorMessage", "Image field cannot be empty.");
-            return "redirect:/products/create";
-        }
         try {
-            byte[] imageBytes = image.getBytes();
-            ProductDto savedProductDto = productService.create(productDto, imageBytes);
-            LOGGER.info("Product has been successfully added: " + savedProductDto.toString());
-            redirectAttributes.addFlashAttribute("successMessage", "Product has been successfully added.");
+            if (image != null && !image.isEmpty()) {
+                String imageBase64 = Base64.getEncoder().encodeToString(image.getBytes());
+                productDto.setImageBase64(imageBase64);
+            }
+            productService.create(productDto);
+            redirectAttributes.addFlashAttribute("successMessage", "Produkt został dodany pomyślnie.");
         } catch (IOException e) {
-            LOGGER.warning("Error processing image: " + e.getMessage());
-            redirectAttributes.addFlashAttribute("errorMessage", "Error processing image.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Błąd przetwarzania obrazu: " + e.getMessage());
             return "redirect:/products/create";
         }
-        LOGGER.info("create(...) = ");
         return "redirect:/products";
     }
 }

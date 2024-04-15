@@ -172,7 +172,9 @@
                         <td th:text="${product.description}"></td>
                         <td th:text="${product.stock}"></td>
                         <td th:text="${product.price + ' zł'}"></td>
-                        <td></td>
+                        <td><img th:if="${product.imageBase64}"
+                                 th:src="'data:image/jpeg;base64,' + ${product.imageBase64}"
+                                 alt="Obraz produktu" style="width: 200px; height: auto;"/></td>
                     </tr>
                     </tbody>
                 </table>

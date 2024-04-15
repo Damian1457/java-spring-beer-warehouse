@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +12,6 @@
             padding: 0;
             overflow-x: hidden;
         }
-
         header {
             background-color: #4a2c1d;
             color: white;
@@ -32,49 +30,51 @@
             text-decoration: none;
             font-size: 14px;
         }
-
         nav a:not(:last-child) {
             margin-right: 20px;
         }
-
         nav a:last-child {
             margin-left: auto;
             margin-right: 25px;
         }
-
- .form-header {
-    background-color: #4a2c1d;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    border-radius: 8px 8px 0 0;
-    margin: 100px auto 0;
-    width: 100%;
-    max-width: 620px; /* Zmniejszona szerokość, aby pasowała do formularza z paddingiem */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-          .form-header h2 {
+        .form-header {
+            background-color: #4a2c1d;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px 8px 0 0;
+            margin: 100px auto 0;
+            width: 100%;
+            max-width: 620px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-header h2 {
             margin: 0;
             font-size: 24px;
         }
-     form {
-    background-color: white;
-    padding: 20px;
-    margin: 0 auto 20px; /* Usunięty górny margines */
-    width: 90%;
-    max-width: 600px; /* Upewnij się, że szerokość jest taka sama jak szerokość form-header minus padding */
-    border-radius: 0 0 8px 8px; /* Usunięto górne zaokrąglenie, aby pasowało do .form-header */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        form {
+            background-color: white;
+            padding: 20px;
+            margin: 0 auto 20px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
         input[type="text"], input[type="number"], textarea, input[type="file"] {
             width: 100%;
             padding: 8px;
-            margin: 10px 0;
+            margin-bottom: 20px;
             border-radius: 4px;
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
-
         button[type="submit"] {
             background-color: #4a2c1d;
             color: white;
@@ -85,11 +85,9 @@
             border-radius: 4px;
             transition: background-color 0.3s ease;
         }
-
         button[type="submit"]:hover {
             background-color: #502b01;
         }
-
         footer {
             background-color: #5a3d2d;
             color: white;
@@ -100,12 +98,10 @@
             left: 0;
             width: 100%;
         }
-
         @media screen and (max-width: 768px) {
             header, footer {
                 padding: 5px 0;
             }
-
             form {
                 width: 95%;
             }
@@ -124,13 +120,25 @@
 <div class="form-header">
     <h2>Dodaj Produkt</h2>
 </div>
-<form action="#" th:action="@{/products/create}" th:object="${productDto}" method="post" enctype="multipart/form-data">
-    <input type="text" th:field="*{name}" placeholder="Nazwa"/>
-    <input type="number" th:field="*{capacity}" placeholder="Pojemność"/>
-    <textarea th:field="*{description}" placeholder="Opis"></textarea>
-    <input type="number" th:field="*{stock}" placeholder="Stan"/>
-    <input type="text" th:field="*{price}" placeholder="Cena"/>
-    <input type="file" name="image" required/>
+<form th:action="@{/products/create}" th:object="${productDto}" method="post" enctype="multipart/form-data">
+    <label for="name">Nazwa:</label>
+    <input type="text" th:field="*{name}" placeholder="Nazwa" id="name"/>
+
+    <label for="capacity">Pojemność (ml):</label>
+    <input type="number" th:field="*{capacity}" placeholder="Pojemność w mililitrach" id="capacity"/>
+
+    <label for="description">Opis:</label>
+    <textarea th:field="*{description}" placeholder="Opis produktu" id="description"></textarea>
+
+    <label for="stock">Stan magazynowy:</label>
+    <input type="number" th:field="*{stock}" placeholder="Ilość dostępna" id="stock"/>
+
+    <label for="price">Cena (zł):</label>
+    <input type="text" th:field="*{price}" placeholder="Cena w złotych" id="price"/>
+
+    <label for="image">Obraz:</label>
+    <input type="file" name="image" required id="image" accept="image/png, image/jpeg" />
+
     <button type="submit">Dodaj</button>
 </form>
 <footer>
