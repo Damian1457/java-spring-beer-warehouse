@@ -10,6 +10,8 @@ public class ProductDto {
     private int stock;
     private double price;
 
+    private String imageBase64;
+
     public ProductDto() {
     }
 
@@ -60,7 +62,15 @@ public class ProductDto {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
     @Override
     public String toString() {
         return "ProductDto{" +
