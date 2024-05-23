@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Cart View</title>
-    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -24,7 +23,7 @@
             <tbody>
             <tr th:each="item : ${cart.items}">
                 <td th:text="${item.product.name}">Product Name</td>
-                <td th:text="${item.productDescription}">Description</td>
+                <td th:text="${item.product.description}">Description</td>
                 <td>
                     <form th:action="@{/cart/{cartId}/update(cartId=${cart.id})}" method="post" class="form-inline">
                         <input type="hidden" name="productId" th:value="${item.product.id}" />
@@ -58,11 +57,10 @@
         <button type="submit" class="btn btn-warning">Clear Cart</button>
     </form>
     <p class="mt-3">
-        <a th:href="@{/cart/create}" class="btn btn-info">Create New Cart</a>
+        <a th:href="@{/cart/new}" class="btn btn-info">Create New Cart</a> <!-- Poprawione -->
     </p>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

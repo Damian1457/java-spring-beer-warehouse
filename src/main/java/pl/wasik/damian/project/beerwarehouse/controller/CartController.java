@@ -24,36 +24,36 @@ public class CartController {
     public String getCart(@PathVariable Long cartId, Model model) {
         CartDto cart = cartService.getCart(cartId);
         model.addAttribute("cart", cart);
-        return "cart/cart"; // Ścieżka do widoku, np. src/main/resources/templates/cart/cart-view.html
+        return "cart/cart";
     }
 
     @GetMapping("/new")
     public String createCart(Model model) {
         CartDto cart = cartService.createCart();
-        return "redirect:/cart/" + cart.getId(); // Przekierowanie do widoku koszyka
+        return "redirect:/cart/" + cart.getId();
     }
 
     @PostMapping("/{cartId}/add")
     public String addProductToCart(@PathVariable Long cartId, @RequestParam Long productId, @RequestParam int quantity) {
         cartService.addProductToCart(cartId, productId, quantity);
-        return "redirect:/cart/" + cartId; // Przekierowanie do widoku koszyka
+        return "redirect:/cart/" + cartId;
     }
 
     @PostMapping("/{cartId}/remove")
     public String removeProductFromCart(@PathVariable Long cartId, @RequestParam Long productId) {
         cartService.removeProductFromCart(cartId, productId);
-        return "redirect:/cart/" + cartId; // Przekierowanie do widoku koszyka
+        return "redirect:/cart/" + cartId;
     }
 
     @PostMapping("/{cartId}/clear")
     public String clearCart(@PathVariable Long cartId) {
         cartService.clearCart(cartId);
-        return "redirect:/cart/" + cartId; // Przekierowanie do widoku koszyka
+        return "redirect:/cart/" + cartId;
     }
 
     @PostMapping("/{cartId}/update")
     public String updateProductQuantity(@PathVariable Long cartId, @RequestParam Long productId, @RequestParam int quantity) {
         cartService.updateProductQuantity(cartId, productId, quantity);
-        return "redirect:/cart/" + cartId; // Przekierowanie do widoku koszyka
+        return "redirect:/cart/" + cartId;
     }
 }
