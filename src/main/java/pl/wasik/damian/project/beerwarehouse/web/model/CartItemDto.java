@@ -3,9 +3,16 @@ package pl.wasik.damian.project.beerwarehouse.web.model;
 public class CartItemDto {
     private Long id;
     private Long cartId;
-    private Long productId;
     private int quantity;
-    private String productDescription;
+    private ProductDto product;
+
+    public ProductDto getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDto product) {
+        this.product = product;
+    }
 
     public Long getCartId() {
         return cartId;
@@ -15,22 +22,6 @@ public class CartItemDto {
         this.cartId = cartId;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
     public Long getId() {
         return id;
     }
@@ -38,7 +29,7 @@ public class CartItemDto {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public int getQuantity() {
         return quantity;
     }
