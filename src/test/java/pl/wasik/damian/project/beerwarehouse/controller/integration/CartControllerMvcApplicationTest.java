@@ -1,4 +1,4 @@
-package pl.wasik.damian.project.beerwarehouse.controller;
+package pl.wasik.damian.project.beerwarehouse.controller.integration;
 
 
 import org.junit.jupiter.api.DisplayName;
